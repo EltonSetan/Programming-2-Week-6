@@ -5,10 +5,12 @@ namespace ChessGameAssignment
     public class ChessGame
     {
         private ChessPiece[,] chessboard;
+        private const int BoardSize = 8;
+        private const int DisplayOffset = 1;
 
         public void InitChessboard()
         {
-            chessboard = new ChessPiece[8, 8];
+            chessboard = new ChessPiece[BoardSize, BoardSize];
             PutChessPieces();
         }
 
@@ -27,8 +29,12 @@ namespace ChessGameAssignment
 
         public void DisplayChessboard()
         {
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+
             for (int row = 0; row < 8; row++)
             {
+                Console.Write($"{8 - row} ");
                 for (int col = 0; col < 8; col++)
                 {
                     Console.BackgroundColor = (row + col) % 2 == 0 ? ConsoleColor.Gray : ConsoleColor.DarkYellow;
@@ -37,7 +43,18 @@ namespace ChessGameAssignment
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.WriteLine();
             }
+
+            // Print column letters
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("  ");
+            for (char c = 'a'; c <= 'h'; c++)
+            {
+                Console.Write($" {c} ");
+            }
+            Console.WriteLine();
         }
+
 
         public Position String2Position(string pos)
         {
@@ -97,7 +114,8 @@ namespace ChessGameAssignment
             {
                 try
                 {
-                    Console.WriteLine("Enter a move (e.g. a2 a3) or 'stop' to quit:");
+                    DisplayChessboard();
+                    Console.WriteLine("Enter a move (e.g. a2 a3):");
                     string input = Console.ReadLine();
 
                     if (input.ToLower() == "stop")
@@ -115,10 +133,29 @@ namespace ChessGameAssignment
                     Position from = String2Position(splitInput[0]);
                     Position to = String2Position(splitInput[1]);
 
+                    ChessPiece piece = chessboard[from.Row, from.Column];
+                    if (piece == null)
+                    {
+                        Console.WriteLine("No chess piece at from-position");
+                        continue;
+                    }
+
+                    if (!piece.IsValidMove(from, to))
+                    {
+                        Console.WriteLine($"Invalid move for chess piece {piece.Type}");
+                        continue;
+                    }
+
+                    ChessPiece targetPiece = chessboard[to.Row, to.Column];
+                    if (targetPiece != null && targetPiece.Color == piece.Color)
+                    {
+                        Console.WriteLine("Can not take a chess piece of same color");
+                        continue;
+                    }
+
                     Console.WriteLine($"move from {splitInput[0]} to {splitInput[1]}");
 
                     DoMove(from, to);
-                    DisplayChessboard();
                 }
                 catch (Exception ex)
                 {
@@ -126,6 +163,8 @@ namespace ChessGameAssignment
                 }
             }
         }
+
+
 
         private void DisplayChessPiece(ChessPiece chessPiece)
         {
