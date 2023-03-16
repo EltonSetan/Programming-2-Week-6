@@ -13,7 +13,6 @@ namespace ChessGameAssignment
         {
             ChessGame game = new ChessGame();
             game.InitChessboard();
-            game.DisplayChessboard();
             game.PlayChess();
         }
     }

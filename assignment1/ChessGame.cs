@@ -110,11 +110,11 @@ namespace ChessGameAssignment
 
         public void PlayChess()
         {
+            DisplayChessboard();
             while (true)
             {
                 try
                 {
-                    DisplayChessboard();
                     Console.WriteLine("Enter a move (e.g. a2 a3):");
                     string input = Console.ReadLine();
 
@@ -156,6 +156,7 @@ namespace ChessGameAssignment
                     Console.WriteLine($"move from {splitInput[0]} to {splitInput[1]}");
 
                     DoMove(from, to);
+                    DisplayChessboard();
                 }
                 catch (Exception ex)
                 {
@@ -163,6 +164,7 @@ namespace ChessGameAssignment
                 }
             }
         }
+
 
 
 
