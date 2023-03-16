@@ -60,7 +60,7 @@ namespace ChessGameAssignment
         {
             if (pos.Length != 2 || pos[0] < 'a' || pos[0] > 'h' || pos[1] < '1' || pos[1] > '8')
             {
-                throw new ArgumentException($"invalid position {pos}");
+                throw new ArgumentException($"Invalid position {pos}");
             }
 
             int column = pos[0] - 'a';
@@ -68,6 +68,7 @@ namespace ChessGameAssignment
 
             return new Position(row, column);
         }
+
 
         public bool CheckMove(Position from, Position to)
         {
@@ -153,9 +154,8 @@ namespace ChessGameAssignment
                         continue;
                     }
 
-                    Console.WriteLine($"move from {splitInput[0]} to {splitInput[1]}");
-
                     DoMove(from, to);
+                    Console.WriteLine($"move from {splitInput[0]} to {splitInput[1]}"); // Add this line to print the successful move
                     DisplayChessboard();
                 }
                 catch (Exception ex)
@@ -189,8 +189,25 @@ namespace ChessGameAssignment
                 symbol = char.ToLower(symbol);
             }
 
+            // Modify the following line to match the expected symbols:
+            if (symbol == 'P') symbol = 'p';
+            if (symbol == 'N') symbol = 'k';
+            if (symbol == 'B') symbol = 'b';
+            if (symbol == 'R') symbol = 'r';
+            if (symbol == 'Q') symbol = 'Q';
+            if (symbol == 'K') symbol = 'K';
+            if (symbol == 'p') symbol = 'p';
+            if (symbol == 'n') symbol = 'k';
+            if (symbol == 'b') symbol = 'b';
+            if (symbol == 'r') symbol = 'r';
+            if (symbol == 'q') symbol = 'q';
+            if (symbol == 'k') symbol = 'k';
+
             Console.Write($" {symbol} ");
         }
+
+
+
 
     }
 }

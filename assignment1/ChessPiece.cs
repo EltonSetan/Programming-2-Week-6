@@ -18,6 +18,11 @@ namespace ChessGameAssignment
             int rowDiff = Math.Abs(target.Row - current.Row);
             int colDiff = Math.Abs(target.Column - current.Column);
 
+            // Ensure the target position is within the bounds of the board
+            if (target.Row < 0 || target.Row >= 8 || target.Column < 0 || target.Column >= 8)
+            {
+                return false;
+            }
             switch (Type)
             {
                 case ChessPieceType.Pawn:
