@@ -60,7 +60,7 @@ namespace ChessGameAssignment
         {
             if (pos.Length != 2 || pos[0] < 'a' || pos[0] > 'h' || pos[1] < '1' || pos[1] > '8')
             {
-                throw new ArgumentException($"Invalid position {pos}");
+                throw new ArgumentException($"Invalid position: {pos}");
             }
 
             int column = pos[0] - 'a';
