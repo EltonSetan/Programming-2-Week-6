@@ -184,7 +184,13 @@ namespace ChessGameAssignment
                 symbol = 'N';
             }
 
+            if (chessPiece.Color == ChessPieceColor.Black)
+            {
+                symbol = char.ToLower(symbol);
+            }
+
             Console.Write($" {symbol} ");
         }
+
     }
 }
